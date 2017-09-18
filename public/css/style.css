@@ -148,6 +148,14 @@ transform-origin: 50% 50% 0;
     background: linear-gradient(to right, #4db0f2, #5b829b);
 }
 
+
+.textQuote{
+	width:15%;
+	position:absolute;
+	top:180px;
+	left: 25px;
+}
+
 .saveBtn{
 	background: #78e575; 
     background: -webkit-linear-gradient(left, #78e575, #607f5f);

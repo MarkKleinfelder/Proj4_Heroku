@@ -107,6 +107,12 @@ app.delete('/api/programs/:id', function(req,res){
 
 
 
+//___________________________________API__________________//
+// app.get('https://random-quote-generator.herokuapp.com/api/quotes/random', function(req,res){
+//   console.log('hit api route');
+//   console.log(req.params.quote);
+// })
+
 
 
 

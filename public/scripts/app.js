@@ -491,9 +491,30 @@ $("#titleModal").on('click', '#saveTitle', function(event){ //change title
   }, stepTime); //uses stepTime from above to stay sync'd to sound and visuals
 
 
-
+api();
 })()//this runs the function!
 
+var text;
+var auth;
+function api(){
+  $.ajax({
+      method: "GET",
+      url: 'https://random-quote-generator.herokuapp.com/api/quotes/random',
+      success: function(data){
+        console.log("api route hit");
+        console.log(data.quote)
+        text = data.quote;
+        auth = data.author;
+        renderText()
+      }
+  })
+}
+
+function renderText(){
+  console.log("renderText hit")
+  console.log(text)
+  $("#quoteText").text(text);
+}
 
 
 
