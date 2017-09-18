@@ -494,27 +494,27 @@ $("#titleModal").on('click', '#saveTitle', function(event){ //change title
 api();
 })()//this runs the function!
 
-var text;
-var auth;
-function api(){
-  $.ajax({
-      method: "GET",
-      url: 'https://random-quote-generator.herokuapp.com/api/quotes/random',
-      success: function(data){
-        console.log("api route hit");
-        console.log(data.quote)
-        text = data.quote;
-        auth = data.author;
-        renderText()
-      }
-  })
-}
+// var text;
+// var auth;
+// function api(){
+//   $.ajax({
+//       method: "GET",
+//       url: 'https://random-quote-generator.herokuapp.com/api/quotes/random',
+//       success: function(data){
+//         console.log("api route hit");
+//         console.log(data.quote)
+//         text = data.quote;
+//         auth = data.author;
+//         renderText()
+//       }
+//   })
+// }
 
-function renderText(){
-  console.log("renderText hit")
-  console.log(text)
-  $("#quoteText").text(text);
-}
+// function renderText(){
+//   console.log("renderText hit")
+//   console.log(text)
+//   $("#quoteText").text(text);
+// }
 
 
 
