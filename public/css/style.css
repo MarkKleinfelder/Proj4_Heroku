@@ -6,7 +6,8 @@
 	padding:15px;
 	width : 70%;
 	height:50%;
-	/*background-color: rgba(84, 255, 195, 0.2);*/
+	/*background-color: rgba(150, 150, 150, 1);*/
+
 	border-radius: 10px;
 	/*box-shadow: 4px 3px 10px black;*/
 }
@@ -55,9 +56,11 @@
 	content: attr(data-instrument);
 	position: absolute;
    	left:12%;
+   	padding:0px 3px;
 	font-family:'Permanent Marker', sans-serif;
 	font-size: 18px;
-	/*background-color: rgba(255,255,255,.7);*/
+	background-color: rgba(255,255,255,.7);
+	z-index: -1;
 }
 
 .machineGrid button.playHead {
@@ -114,6 +117,8 @@ li{
 .clearBtn, .saveBtn, .moarBtn{
 	border-style: outset;
 	border-color:white;
+	box-shadow: 5px 3px 8px black;
+	margin:0px 10px;
 }
 
 
@@ -122,7 +127,7 @@ li{
 	background: #ff4747; 
     background: -webkit-linear-gradient(left, #ff4747, #7c4545);
     background: -o-linear-gradient(left, #ff4747, #7c4545);
-    background: linear-gradient(to right, #ff4747, #7c4545);  
+    background: linear-gradient(to right, #ff4747, #7c4545);
 }
 
 .container{
@@ -150,6 +155,21 @@ li{
 	text-align: center;
 }
 
+.drumMachineBG{
+	background-image: url('../images/carbon.png');
+	background-position: center right;
+	position:absolute;
+	top:7em;
+	margin:0 auto;	
+	width:80%;
+	height:585px;
+	max-height:586px;
+	border-radius: 15%;
+	box-shadow: 4px 4px 10px black;
+	z-index: -1;
+	
+}
+
 .item{
 	margin-left:auto;
 	margin-right:auto;
@@ -157,8 +177,14 @@ li{
 	align-content: center;
 }
 
+.indicator{
+	color:white;
+
+}
+
 .opsButtons{
 	margin-top:15px;
+
 }
 
 .pageName {
@@ -213,6 +239,7 @@ transform-origin: 50% 50% 0;
 }
 
 .sliders{
+
 }
 
 
