@@ -13,6 +13,7 @@
 
 .machineGrid button {
 	background: #962f22; 
+
     background: -webkit-linear-gradient(to right, #db6c5e, #962f22); 
     background: linear-gradient(to right, #db6c5e, #962f22); 
 	border: 1px solid black;
@@ -24,18 +25,23 @@
 	flex: 1 1 5%;  /*button width*/
 	margin: 1.5% 3.5%;
 	box-shadow: 5px 3px 8px black;
+
 }
 
 .machineGrid button:hover {
     background: #fc4f3c; 
     background: -webkit-linear-gradient(to right, #fc4f3c, #bf3a2b); 
     background: linear-gradient(to right, #fc4f3c, #bf3a2b); 
+    box-shadow: 0 0 5px rgba(255,255,255,.5)  , 0 0 10px #fc4f3c , 0 0 20px #fc4f3c , 0 0 30px #fc4f3c , 0 0 40px #fc4f3c;
+
 }
 
 .machineGrid button.on {
 	background: #48ea8e; 
     background: -webkit-linear-gradient(to right, #48ea8e, #21af5f); 
-    background: linear-gradient(to right, #48ea8e, #21af5f); 
+    background: linear-gradient(to right, #1ee875, #21af5f); 
+    box-shadow: 0 0 5px rgba(255,255,255,.5)  , 0 0 10px #84ffb9 , 0 0 20px #84ffb9 , 0 0 30px #84ffb9 , 0 0 40px #84ffb9;
+
 }
 
 .machineGrid button.on:hover{
@@ -46,13 +52,20 @@
 }
 
 .machineGrid button.first::before { /* Adds the inst name next to first button!!! */
-
+	content: attr(data-instrument);
+	position: absolute;
+   	left:12%;
+	font-family:'Permanent Marker', sans-serif;
+	font-size: 18px;
+	/*background-color: rgba(255,255,255,.7);*/
 }
 
 .machineGrid button.playHead {
 	background: #5bdbff; 
     background: -webkit-linear-gradient(to right, #5bdbff, #279bbc); 
     background: linear-gradient(to right, #5bdbff, #279bbc);
+    box-shadow: 0 0 5px rgba(255,255,255,.5)  , 0 0 10px #5bdbff , 0 0 20px #5bdbff , 0 0 30px #5bdbff , 0 0 40px #5bdbff;
+
 }
 
 /*_______________________OTHER STYLES_____________________*/
@@ -158,6 +171,7 @@ li{
 	border-radius: 50%;
 	background-color:black;
 	box-shadow: 2px 2px 2px black;
+	z-index: 99;
 }
 
 .pageNameH1{
