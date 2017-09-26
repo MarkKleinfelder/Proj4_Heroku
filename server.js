@@ -127,5 +127,5 @@ app.delete('/api/programs/:id', function(req,res){
 
 //listen on port 3000
 app.listen(process.env.PORT || 3000, function () {
-  console.log('server running');
+  console.log('server running 3000');
 });

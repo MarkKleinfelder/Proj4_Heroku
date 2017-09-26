@@ -284,8 +284,8 @@ document.querySelector('#save').addEventListener('click', saveProgram);
         let allBeatz  = data;
         allBeatz.forEach(function(beatz){
           allBeatzHTML = 
-            "<a href='#' class='item oneBeatz' data-beatz-id='" + beatz._id + "'>" 
-             +beatz.title+  " " + "<button type='button' id='titleButton' class='btn-primary btnAdd btnList'>Change Title</button> <button type='button' id='deleteBeatzButton' class='btn-danger btnRemove btnList'>Remove This Beat</button> <button class='bt-default btnReLoad btnList' id='reLoadButton'>Re-Load</button></a>"
+            "<li href='#' class='item oneBeatz' data-beatz-id='" + beatz._id + "'><p class='beatzListTitle'>" 
+             +beatz.title+  " " + "</p><button type='button' id='titleButton' class='btnAdd btnList'>Change Title</button> <button type='button' id='deleteBeatzButton' class='btnRemove btnList'>Remove This Beat</button> <button class='btnReLoad btnList' id='reLoadButton'>Re-Load</button></li>"
           $('#allBeatzList').append(allBeatzHTML)
         })
       })
@@ -491,7 +491,7 @@ $("#titleModal").on('click', '#saveTitle', function(event){ //change title
   }, stepTime); //uses stepTime from above to stay sync'd to sound and visuals
 
 
-api();
+// api();
 })()//this runs the function!
 
 // var text;
@@ -499,13 +499,12 @@ api();
 // function api(){
 //   $.ajax({
 //       method: "GET",
-//       url: 'https://random-quote-generator.herokuapp.com/api/quotes/random',
+//       url: 'https://random-quote-generator.herokuapp.com/api/quotes/',
 //       success: function(data){
 //         console.log("api route hit");
-//         console.log(data.quote)
-//         text = data.quote;
-//         auth = data.author;
-//         renderText()
+//         console.log(data[0])
+       
+       
 //       }
 //   })
 // }

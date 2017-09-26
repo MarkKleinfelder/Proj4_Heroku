@@ -67,10 +67,43 @@ body {
     align-content: center; 
 }
 
+li{
+	list-style: none;
+}
+
+.beatzListTitle{
+	text-align: center;
+	margin-bottom: 2px;
+}
+
+.btnList{
+	border-radius: 15px;
+	font-size: 9px;
+	margin-bottom: 5px;
+}
+
+.btnList:hover{
+	color:red;
+}
+
+.btnAdd{
+	background-color:white;	
+}
+
+.btnRemove{
+	background-color: #c4626d;
+}
+
+.btnReLoad{
+	background-color: #72c18c;
+}
+
 .clearBtn, .saveBtn, .moarBtn{
 	border-style: outset;
 	border-color:white;
 }
+
+
 
 .clearBtn{
 	background: #ff4747; 
@@ -104,6 +137,13 @@ body {
 	text-align: center;
 }
 
+.item{
+	margin-left:auto;
+	margin-right:auto;
+	align-self: auto;
+	align-content: center;
+}
+
 .opsButtons{
 	margin-top:15px;
 }
@@ -134,12 +174,7 @@ transform-origin: 50% 50% 0;
   text-shadow: 0 0 10px rgba(255,255,255,1) , 0 0 20px rgba(255,255,255,1) , 0 0 30px rgba(255,255,255,1) , 0 0 40px #00ffff , 0 0 70px #00ffff , 0 0 80px #00ffff , 0 0 100px #00ffff ;
 }
 
-.item{
-	margin-left:auto;
-	margin-right:auto;
-	align-self: auto;
-	align-content: center;
-}
+
 
 .moarBtn {
 	background: #4db0f2; 
