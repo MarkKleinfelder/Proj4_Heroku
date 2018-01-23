@@ -1,27 +1,105 @@
+var AudioContext = window.AudioContext; //AudioApi
+if (AudioContext){
+  var context =  new AudioContext(); // if we can use AudioContext 
+}
+
+
+
+var sounds = [
+  'hihatAnalog.wav',
+  'openhatTight.wav',
+  'kickFloppy.wav',
+  'kickHeavy.wav',
+  'snareAnalog.wav',
+  'snareBlock.wav'
+];
+
+
+var soundsUrl = './sounds/';  //var soundPath = soundsUrl + sounds[i]
+var BPM=120;
+var STEPS = 8;
+var currentStep = 0;
+var lastStep = STEPS - 1;
+var stepTime = 1/(4*BPM/(60*1000));
+
+/////////////////////////////////////
+///////DISTORTION SLIDER/////////////
+/////////////////////////////////////
+var dist;
+var currentDist;
+var distAmount=0;
+currentDist = $('#currentDist');
+  // distortion slider
+$('#distSlider').change(function(){
+  currentDist.html(this.value);
+  dist=parseInt(this.value,10)
+  distAmount=dist;
+});
+
+
+function makeDistortionCurve(amount) {
+  var k = typeof amount === 'number' ? amount : 0,
+  n_samples = 575,
+  curve = new Float32Array(n_samples),
+  deg = Math.PI / 30,
+  i = 0,
+  x;
+  for ( ; i < n_samples; ++i ) {
+    x = i * 2 / n_samples - 1;
+    curve[i] = ( 2 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+  }
+  return curve;
+};
+/////////////////////////////////////
+/////////////////////////////////////
+
+// var distortion = context.createWaveShaper();  
+// var gain = context.createGain();
+
+// source.connect(distortion);
+// distortion.connect(gain);
+// gain.connect(context.destination);
+
+let currentValue;
+let currentGain=5;
+currentValue = $('#currentValue');
+
+$('#defaultSlider').change(function(){
+  currentValue.html(this.value);
+  currentGain = parseInt(this.value,10);
+  console.log(currentGain)
+});
+
+//gain.gain.value = currentGain*.1;
+
+
+
+
+
+
 
 (function () {
   console.log('app.js is running!');
+
+  // var AudioContext = window.AudioContext; //AudioApi
+  // if (AudioContext){
+  // var context =  new AudioContext(); // if we can use AudioContext 
+  // }
  
+  //*************************
+  // var sounds = [
+  //   'hihatAnalog.wav',
+  //   'openhatTight.wav',
+  //   'kickFloppy.wav',
+  //   'kickHeavy.wav',
+  //   'snareAnalog.wav',
+  //   'snareBlock.wav'
+  // ];
+  // var soundsUrl = './sounds/';  //var soundPath = soundsUrl + sounds[i]
 
-  var AudioContext = window.AudioContext; //AudioApi
-  if (AudioContext){
-  var context =  new AudioContext(); // if we can use AudioContext 
-  }
- 
-
-  var sounds = [
-    'hihatAnalog.wav',
-    'openhatTight.wav',
-    'kickFloppy.wav',
-    'kickHeavy.wav',
-    'snareAnalog.wav',
-    'snareBlock.wav'
-  ];
-  var soundsUrl = './sounds/';  //var soundPath = soundsUrl + sounds[i]
-
-  var BPM=120;
-  var STEPS = 8;
-  
+  // var BPM=120;
+  // var STEPS = 8;
+  //**************************
 
 
   ////////////////////////////////////////////////////////
@@ -73,16 +151,16 @@
 ///////  GAIN SLIDER  /////
 ///////////////////////////
 
-      let currentValue;
-      let currentGain = document.getElementById('currentValue').innerHTML;
+    //   let currentValue;
+    //   let currentGain = document.getElementById('currentValue').innerHTML;
       
-      $(function(){
-        currentValue = $('#currentValue');
-        $('#defaultSlider').change(function(){
-          currentValue.html(this.value);
-         });
-        $('#defaultSlider').change();
-      });
+    //   $(function(){
+    //     currentValue = $('#currentValue');
+    //     $('#defaultSlider').change(function(){
+    //       currentValue.html(this.value);
+    //      });
+    //     $('#defaultSlider').change();
+    //   });
 
     gain.gain.value = currentGain*.1;
 
@@ -90,37 +168,38 @@
 ///////////////////////////////////
 /////// DISTORTION FUNCTION   /////
 ///////////////////////////////////
-     
-      var dist = document.getElementById('currentDist').innerHTML;
-      var currentDist;
-      var distAmount = parseInt(dist, 10);
-      
-     $(function(){          // distortion slider
-        currentDist = $('#currentDist');
-        $('#distSlider').change(function(){
-          currentDist.html(this.value);
-         });
-        $('#distSlider').change();
-      });
+
+      //******************************
+      // var dist = document.getElementById('currentDist').innerHTML;
+      // var currentDist;
+      // var distAmount = parseInt(dist, 10);
+      //******************************
+     // $(function(){          // distortion slider
+     //    currentDist = $('#currentDist');
+     //    $('#distSlider').change(function(){
+     //      currentDist.html(this.value);
+     //     });
+     //    $('#distSlider').change();
+     //  });
 
 
-      function makeDistortionCurve(amount) {
-        var k = typeof amount === 'number' ? amount : 0,
-        n_samples = 575,
-        curve = new Float32Array(n_samples),
-        deg = Math.PI / 180,
-        i = 0,
-        x;
-          for ( ; i < n_samples; ++i ) {
-           x = i * 2 / n_samples - 1;
-            curve[i] = ( 3 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
-          }
-      return curve;
+      // function makeDistortionCurve(amount) {
+      //   var k = typeof amount === 'number' ? amount : 0,
+      //   n_samples = 575,
+      //   curve = new Float32Array(n_samples),
+      //   deg = Math.PI / 30,
+      //   i = 0,
+      //   x;
+      //     for ( ; i < n_samples; ++i ) {
+      //      x = i * 2 / n_samples - 1;
+      //       curve[i] = ( 2 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
+      //     }
+      // return curve;
 
-      };
+      // };
 
       distortion.curve = makeDistortionCurve(distAmount);
-      distortion.oversample = '4x';
+      distortion.oversample = '2x';
 
     //***source.connect(context.destination);  //connects the source to the AudioContext destination (where the audio plays(computer speakers!))
     
@@ -450,10 +529,11 @@ $("#titleModal").on('click', '#saveTitle', function(event){ //change title
 
   // This animation/loop is based on time, NOT per frame refresh. That is why we use the 'new Date().getTime()' to measure time between animations.
   //sets all variables on page load
-  var currentStep = 0;
-  var lastStep = STEPS - 1;
-  var stepTime = 1/(4*BPM/(60*1000)) //60*1000 (since we need mili-sec), 4*BPM (since we have 4 beats per measure), 4*BPM/(60*1000) (length of time allowed per-measure), 1/ (length of time per each beat)
-
+  // *************************** 
+  // var currentStep = 0;
+  // var lastStep = STEPS - 1;
+  // var stepTime = 1/(4*BPM/(60*1000)) //60*1000 (since we need mili-sec), 4*BPM (since we have 4 beats per measure), 4*BPM/(60*1000) (length of time allowed per-measure), 1/ (length of time per each beat)
+  //****************************
   //sets start time on animation to current time of day. Uses time of day (not timers run by the CPU) to keep sync. 
   function requestInterval(fn, delay){ //requestInterval replaces 'setInterval'. Works with requestAnimationFrame
     var start = new Date().getTime(); // TRY *refactor* change to +new Date. Updated syntax. Changes date/time to integer.
