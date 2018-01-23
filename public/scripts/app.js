@@ -34,9 +34,10 @@ $('#distSlider').change(function(){
   currentDist.html(this.value);
   dist=parseInt(this.value,10)
   distAmount=dist;
+  makeDistortionCurve(distAmount)
 });
 
-
+let distCurve;
 function makeDistortionCurve(amount) {
   var k = typeof amount === 'number' ? amount : 0,
   n_samples = 575,
@@ -48,7 +49,7 @@ function makeDistortionCurve(amount) {
     x = i * 2 / n_samples - 1;
     curve[i] = ( 2 + k ) * x * 20 * deg / ( Math.PI + k * Math.abs(x) );
   }
-  return curve;
+   distCurve = curve;
 };
 /////////////////////////////////////
 /////////////////////////////////////
@@ -198,8 +199,9 @@ $('#defaultSlider').change(function(){
 
       // };
 
-      distortion.curve = makeDistortionCurve(distAmount);
-      distortion.oversample = '2x';
+      //distortion.curve = makeDistortionCurve(distAmount); //THIS WORKS!!!!
+      distortion.curve = distCurve;
+      distortion.oversample = '2x'; 
 
     //***source.connect(context.destination);  //connects the source to the AudioContext destination (where the audio plays(computer speakers!))
     
