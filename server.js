@@ -1,4 +1,5 @@
 // var request      = require('request');
+require('dotenv').config()
 var express      = require('express');
 var session      = require('express-session');
 var app          = express();
@@ -129,3 +130,5 @@ app.delete('/api/programs/:id', function(req,res){
 app.listen(process.env.PORT || 3000, function () {
   console.log('server running 3000');
 });
+
+module.exports = app;
