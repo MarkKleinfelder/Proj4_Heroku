@@ -292,13 +292,7 @@ var saveProgram = function(){
   });
   console.log(programData)
 
-  
-
-
-////////////////////////////////////
-/////   SAVE TO DATABASE       /////
-////////////////////////////////////
-
+  // prep data for database
   var hiHat1 = Object.values(programData.hihatAnalog); //these pull the data (pattern) out of each instrument
   var hiHat2 = Object.values(programData.openhatTight);
   var kick1 = Object.values(programData.kickFloppy);
@@ -326,8 +320,15 @@ var saveProgram = function(){
     },
     success: function(){
       console.log('ajax POST success')
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) { 
+      alert("Status: " + textStatus); alert("Error: " + errorThrown); 
     }
-  })
+  }).fail(function (jqXHR, textStatus, error) {
+    // Handle error here
+    $('#editor-content-container').html(jqXHR.responseText);
+    $('#editor-container').modal('show');
+});
 };
 document.querySelector('#save').addEventListener('click', saveProgram);
 
@@ -381,24 +382,20 @@ document.querySelector('#save').addEventListener('click', saveProgram);
 
 $("#allBeatzList").on('click', '#deleteBeatzButton', function(event){  //#allBeatzList div needs to render before button/function can be used. Else, error.
     console.log('deleteBeatz hit')
-    var thisBeatzId = $(this).parents('.oneBeatz').data('beatz-id');
-    console.log('deleting this beatz ' + thisBeatzId);
-    var byThisURL = "/api/programs/" + thisBeatzId + "";
-    $.ajax({
-      method: "DELETE",
-      url: byThisURL,
-      success: function(){
-        console.log("ajax delete success!");
+    var beatzId = $(this).parents('.oneBeatz').data('beatz-id');
+    console.log('deleting this beatz ' + beatzId);
+
+    $.get("/api/programs/delete/"+ beatzId + "")
+      .done(function(data) {
+        console.log("deleted ---------", data.id);
         renderBeatz(allBeatz)
-      }
-    })
+      })
   })
 
 ////////////////////////////////////
 ////  Change Title of BEATZ    /////
 ////////////////////////////////////
 let beatzId;
-let byThisUrl;
 
 $("#allBeatzList").on('click', '#titleButton', function(event){  
   console.log("change title button hit");
@@ -417,13 +414,13 @@ $("#allBeatzList").on('click', '#titleButton', function(event){
 $("#titleModal").on('click', '#saveTitle', function(event){ //change title
   console.log("save title button hit " + beatzId);
   var titleBox = $("#beatzTitle").val();  
+  var titleData = {};
+  titleData.title = titleBox
   $(".titleInput").val(titleBox);  //populate input box 'titleInput' with db title from modal
   $.ajax({
     method: "PUT",
-    url: byThisURL,
-    data: {
-      title: titleBox,    //replace title in db object with new title
-    },
+    url: "/api/programs/update/" + beatzId + "",
+    data: titleData,
     success: function(allBeatz){
       console.log("ajax update title success");  
       $("#titleModal").modal('hide');  //hide modal on success
@@ -443,39 +440,40 @@ $("#titleModal").on('click', '#saveTitle', function(event){ //change title
     var beatzId = $(this).parents('.oneBeatz').data('beatz-id')
     $.get("/api/programs/"+ beatzId + "")
       .done(function(data){
-        $('.titleInput').val(data.title)
+        console.log('log data ----------------',data.inst1)
+       $('.titleInput').val(data.title)
       
-        str1 = data.inst1.split(',');    // converts all pattern STRINGS to pattern ARRAYs
+        str1 = data.inst1 //.split(',');    // converts all pattern STRINGS to pattern ARRAYs
         arr1=[];
         for(i=0; i<str1.length; i++){
         arr1.push(parseInt(str1[i]));
         }
           console.log('arr1 ' +arr1)
-        str2 = data.inst2.split(',');
+        str2 = data.inst2 // .split(',');
         arr2=[];
         for(i=0; i<str2.length; i++){
           arr2.push(parseInt(str2[i]));
         }
         
-        str3 = data.inst3.split(',');
+        str3 = data.inst3 // .split(',');
         arr3=[];
         for(i=0; i<str3.length; i++){
           arr3.push(parseInt(str3[i]));
         }
         
-        str4 = data.inst4.split(',');
+        str4 = data.inst4 // .split(',');
         arr4=[];
         for(i=0; i<str4.length; i++){
           arr4.push(parseInt(str4[i]));
         }
         
-        str5 = data.inst5.split(',');
+        str5 = data.inst5 // .split(',');
         arr5=[];
         for(i=0; i<str5.length; i++){
           arr5.push(parseInt(str5[i]));
         }
         
-        str6 = data.inst6.split(',');
+        str6 = data.inst6 // .split(',');
         arr6=[];
         for(i=0; i<str6.length; i++){
           arr6.push(parseInt(str6[i]));
@@ -573,7 +571,7 @@ $("#titleModal").on('click', '#saveTitle', function(event){ //change title
   }, stepTime); //uses stepTime from above to stay sync'd to sound and visuals
 
 
-// api();
+//  api();
 })()//this runs the function!
 
 // var text;

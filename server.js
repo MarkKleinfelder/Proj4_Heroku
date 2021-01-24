@@ -1,11 +1,10 @@
-// var request      = require('request');
 require('dotenv').config()
 var express      = require('express');
-var session      = require('express-session');
 var app          = express();
 var mongoose     = require('mongoose');
 var bodyParser   = require('body-parser');
 var routes       = require('./config/routes');
+var ObjectId    = require('mongodb').ObjectId
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,116 +18,78 @@ app.use(routes);
 
 /***********DATABASE*************/
 var db = require('./models');
-
-
-/********JSON API END POINTS**********/
-
-
-app.get('/api', function api_index (req, res){
-  res.json({
-    message: "Welcome to Mark Kleinfelder's Project 4",
-    documentation_url: "",
-    base_url: "",
-    endpoints: [
-      {method: "GET", path: "/api", description: "Describes available endpoints"}
-    ]
-  });
-});
-
-
-//____________get all users___________//
-// app.get('/api/users', function user_index(req, res){
-//   	db.User.find({},function(error, users){
-//     console.log(users);
-//     res.json(users);
-//  });
-// });
-
-
-//______________GET home page (index.html)_________//
-
-
-
-
-//______________INDEX all programs____________//
-app.get('/api/programs', function programs_index(req, res){
-  db.Program.find({},function(error, programs){
-    console.log(programs);
-    res.json(programs);
- });
-});
-
-//_______________SHOW program by id_________//
-app.get('/api/programs/:id', function(req,res){
-  db.Program.findOne({ _id:req.params.id
-	}, function(err,program){
-	  res.json(program);
-  })
-})
-
-//____________CREATE program object____//
-app.post('/api/programs', function(req,res){
-    console.log('hit programs');
-    console.log(req.body)
-	db.Program.create(req.body, function(error, program){
-		console.log(program);
-		res.json(program);
-	});
-});
-
-//_______UPDATE program by id with comment__//
-app.put('/api/programs/:id', function(req,res){
-	console.log("PUT hit");
-	console.log(req.params.id);
-    db.Program.findOneAndUpdate({_id: req.params.id},
-   	{$set:{title:req.body.title}}, {new: false},
-  	  function (err,program){
-      if(err){
-      	console.log("PUT error");
-      }
-       console.log("back-end PUT good")
-       res.json(program);
-      });
-    });
-
- 
-//______________DELETE program by id_____//
-app.delete('/api/programs/:id', function(req,res){
-	console.log("DELETE hit");
-	console.log(req.params.id);
-	db.Program.findOneAndRemove({_id: req.params.id}, function(err,deleted){
-		if(err){
-			console.log(err);
-		}else{
-			res.json(deleted);
-		};
-	});
-});
-
-
-
-
-//___________________________________API__________________//
-// app.get('https://random-quote-generator.herokuapp.com/api/quotes/random', function(req,res){
-//   console.log('hit api route');
-//   console.log(req.params.quote);
-// })
-
-
-
-
-
-
-
-
-
-
+const { response } = require('express');
+const dbName = "RadBeatsDb";
+const collectionName = "DrumCollection";
 
 /*************SERVER***************/
 
 //listen on port 3000
 app.listen(process.env.PORT || 3000, function () {
   console.log('server running 3000');
+});
+
+db.initialize(dbName, collectionName, function(dbCollection) { // successCallback
+  // get all items
+  dbCollection.find().toArray(function(err, result) {
+      if (err) throw err;
+        console.log(result);
+  });
+
+//END POINTS
+
+// gets all beats
+  app.get("/api/programs", (request, response) => {
+        dbCollection.find().toArray((err, result) => { // callback of find
+            if (err) throw err;
+            response.json(result);
+        });
+  });
+// gets beat to reload to drum machine
+  app.get("/api/programs/:id", (request, response) => {
+    const beatId = request.params.id.toString();
+    dbCollection.findOne({ _id: new ObjectId(beatId)}, (error, result) => { // callback of findOne 
+      if (error) throw error;
+      response.json(result);
+    })
+  })
+
+// saves beat to database
+  app.post("/api/programs", (request, response) => {
+    const beat = request.body;
+    console.log('save beat -------------', beat)
+    dbCollection.insertOne(beat, (error, result) => { // callback of insertOne
+        if (error) throw error;
+        // return updated list
+        dbCollection.find().toArray((_error, _result) => { // callback of find
+            if (_error) throw _error;
+            response.json(_result);
+        });
+    });
+  });
+
+// deletes beat from database
+  app.get("/api/programs/delete/:id", (request, response) => {
+    beatId = request.params.id.toString();
+    dbCollection.deleteOne({_id: ObjectId(beatId)}, (error, deleted) => {
+      if (error) throw error;
+      response.json(deleted);
+    })
+  })
+
+// update title
+  app.put("/api/programs/update/:id", (request, response) => {
+    beatId = request.params.id.toString();
+    console.log(request)
+    dbCollection.updateOne({_id: ObjectId(beatId)},{$set: {title: request.body.title}}, (error, updated) => {
+      if (error) throw error;
+      response.json(updated);
+    })
+  })
+
+
+}, function(err) { // failureCallback
+  throw (err);
 });
 
 module.exports = app;
