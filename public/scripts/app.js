@@ -261,6 +261,7 @@ $('#defaultSlider').change(function(){
     }
   };
   document.querySelector("#clear").addEventListener('click', clearBeat);
+  document.querySelector("#clear").addEventListener('touchstart', clearBeat);
 
 
 
@@ -333,6 +334,8 @@ var saveProgram = function(){
 });
 };
 document.querySelector('#save').addEventListener('click', saveProgram);
+document.querySelector('#save').addEventListener('touchstart', saveProgram);
+
 
 
 
@@ -375,6 +378,8 @@ document.querySelector('#save').addEventListener('click', saveProgram);
       })
   }
   document.querySelector('#seeBeatz').addEventListener('click', seeBeatz);
+  document.querySelector('#seeBeatz').addEventListener('touchstart', seeBeatz);
+
 
 
 
