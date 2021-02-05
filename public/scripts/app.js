@@ -235,7 +235,9 @@ $('#defaultSlider').change(function(){
       var soundName = sounds[i].split('.')[0]; //takes the file name of each sound file, splits at the '.' then assigns the first part of the split (cuts off the '.wav')
       $newButton.classList.add(soundName);  //adds class name relating to instrument 
       $newButton.dataset.instrument = soundName; //generates data field 'instrument' that equals the soundName
-
+      $newButton.addEventListener('touchstart',  function(){  //adds event listener to all n$ewButtons
+        this.classList.toggle('on');  // all $newButtons toggle position set to false (off)
+      }, false);
       $newButton.addEventListener('click', function(){  //adds event listener to all n$ewButtons
         this.classList.toggle('on');  // all $newButtons toggle position set to false (off)
       }, false);
@@ -366,7 +368,7 @@ document.querySelector('#save').addEventListener('click', saveProgram);
         let allBeatz  = data;
         allBeatz.forEach(function(beatz){
           allBeatzHTML = 
-            "<li href='#' class='item oneBeatz' data-beatz-id='" + beatz._id + "'><p class='beatzListTitle'>" 
+            "<li href='#' class='oneBeatz' data-beatz-id='" + beatz._id + "'><p class='beatzListTitle'>" 
              +beatz.title+  " " + "</p><button type='button' id='titleButton' class='btnAdd btnList'>Change Title</button> <button type='button' id='deleteBeatzButton' class='btnRemove btnList'>Remove This Beat</button> <button class='btnReLoad btnList' id='reLoadButton'>Re-Load</button></li>"
           $('#allBeatzList').append(allBeatzHTML)
         })

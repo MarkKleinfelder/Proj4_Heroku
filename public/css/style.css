@@ -3,8 +3,8 @@
 	display:flex;
 	/*flex-wrap: wrap;   NEEDED????   */ 
 	flex-flow: row wrap; /*keeps all rows inside of machineGrid div*/
-	padding:15px;
-	width : 70%;
+	/* padding:15px; */
+	width : 75%;
 	height:50%;
 	/*background-color: rgba(150, 150, 150, 1);*/
 
@@ -19,14 +19,13 @@
     background: linear-gradient(to right, #db6c5e, #962f22); 
 	border: 1px solid black;
 	border-style: outset;
-	border-radius: 1.5em;
-	border-color: white;
-	padding:2px;
-	height: 3em;
-	flex: 1 1 5%;  /*button width*/
-	margin: 1.5% 3.5%;
+    /* border-radius: 1.5em; */
+    border-color: white;
+    padding: 1px;
+    height: 6em;
+    flex: 1 1 11%;
+    margin: 0.5% 0.5%;
 	box-shadow: 5px 3px 8px black;
-
 }
 
 .machineGrid button:hover {
@@ -55,7 +54,7 @@
 .machineGrid button.first::before { /* Adds the inst name next to first button!!! */
 	content: attr(data-instrument);
 	position: absolute;
-   	left:12%;
+   	left: 4%;
    	padding:0px 3px;
 	font-family:'Permanent Marker', sans-serif;
 	font-size: 18px;
@@ -98,6 +97,10 @@ li{
 	margin-bottom: 5px;
 }
 
+.beatz-list-container {
+	text-align: center;
+}
+
 .btnList:hover{
 	color:red;
 }
@@ -130,12 +133,12 @@ li{
     background: linear-gradient(to right, #ff4747, #7c4545);
 }
 
-.container{
+.gridContainer{
 	display:flex;
 	flex-direction: column;
 	justify-content: center;
-	margin-top:20px;
-
+	margin-top:5px;
+	width: 100%;
 }
 
 
@@ -145,45 +148,53 @@ li{
 
 
 .defaultDiv{
-	margin-top:15px;
+	margin: 15px auto 0px auto;
 	width:45%;
 	text-align: center;
 }
 
 .distDiv{
+	margin: 0px auto;
 	width:45%;
 	text-align: center;
 }
 
 .drumMachineBG{
 	background-image: url('../images/carbon.png');
-	background-position: center right;
-	position:absolute;
-	top:7em;
-	margin:0 auto;	
-	width:80%;
-	height:585px;
-	max-height:586px;
-	border-radius: 15%;
+    background-position: center right;
+    position: relative;
+    /* top: 7em; */
+    margin-top: 52px;
+    /* margin: 0 auto; */
+	width: 1050px;
+    height: 750px;
+    /* max-height: 586px; */
+    /* border-radius: 15%; */
 	box-shadow: 4px 4px 10px black;
-	z-index: -1;
-	
+	z-index: 1;	
 }
 
 .item{
-	margin-left:auto;
-	margin-right:auto;
+	margin-left:20%;
+	/* margin-right:auto; */
 	align-self: auto;
 	align-content: center;
 }
 
+.titleContainer {
+	margin: 0px auto 5px auto;
+}
+
+.historyList {
+	padding: 0;
+}
 .indicator{
 	color:white;
 
 }
 
 .opsButtons{
-	margin-top:15px;
+	margin: 15px auto;
 
 }
 
@@ -238,11 +249,6 @@ transform-origin: 50% 50% 0;
     background: linear-gradient(to right, #78e575, #607f5f);
 }
 
-.sliders{
-
-}
-
-
 .titleInput {
 	font-family: 'Permanent Marker', sans-serif;
 	background:transparent;
@@ -250,5 +256,30 @@ transform-origin: 50% 50% 0;
 	text-align: center;
 	color: black;
 	font-size: 45px;
-	margin-top: 10px
+	margin-top: 10px;
+	background-color: rgba(255,255,255,.8);
+}
+
+@media only screen and (max-width: 745px) {
+	
+	.item {
+		margin: 0 auto;
+	}
+
+	.machineGrid button.first::before { /* Adds the inst name next to first button!!! */
+		display:none;
+	}
+
+	.titleInput {
+		font-size: 25px;
+	}
+	.pageName {
+		margin: 15px;
+		padding: 1px 10px;
+	}
+	.pageName h1 {
+		font-size: 20px;
+		padding: 10px
+	}
+
 }

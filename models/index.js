@@ -1,7 +1,6 @@
 const MongoClient = require("mongodb").MongoClient;
 
-const dbConnectionUrl = "mongodb://MarkKleinfelder:DrumPW@drumproject-shard-00-00.0iq1i.mongodb.net:27017,drumproject-shard-00-01.0iq1i.mongodb.net:27017,drumproject-shard-00-02.0iq1i.mongodb.net:27017/radbeats?ssl=true&replicaSet=atlas-ko0ip2-shard-0&authSource=admin&retryWrites=true&w=majority"
-
+const dbConnectionUrl = process.env.MONGODB_URL; 
 
 function initialize(
     dbName,

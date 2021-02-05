@@ -4,7 +4,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +21,7 @@
     "mongodb-core": "^2.1.15",
     "mongoose": "^4.11.11",
     "node": "^8.3.0",
-    "nodemon": "^1.12.1"
+    "nodemon": "^1.19.4"
   },
   "devDependencies": {},
   "description": ""
