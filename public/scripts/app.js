@@ -235,7 +235,7 @@ $('#defaultSlider').change(function(){
       var soundName = sounds[i].split('.')[0]; //takes the file name of each sound file, splits at the '.' then assigns the first part of the split (cuts off the '.wav')
       $newButton.classList.add(soundName);  //adds class name relating to instrument 
       $newButton.dataset.instrument = soundName; //generates data field 'instrument' that equals the soundName
-      $newButton.addEventListener('touchstart',  function(){  //adds event listener to all n$ewButtons
+      $newButton.addEventListener('tap',  function(){  //adds event listener to all n$ewButtons
         this.classList.toggle('on');  // all $newButtons toggle position set to false (off)
       }, false);
       $newButton.addEventListener('click', function(){  //adds event listener to all n$ewButtons
@@ -261,7 +261,7 @@ $('#defaultSlider').change(function(){
     }
   };
   document.querySelector("#clear").addEventListener('click', clearBeat);
-  document.querySelector("#clear").addEventListener('touchstart', clearBeat);
+  document.querySelector("#clear").addEventListener('tap', clearBeat);
 
 
 
@@ -334,7 +334,7 @@ var saveProgram = function(){
 });
 };
 document.querySelector('#save').addEventListener('click', saveProgram);
-document.querySelector('#save').addEventListener('touchstart', saveProgram);
+document.querySelector('#save').addEventListener('tap', saveProgram);
 
 
 
@@ -378,7 +378,7 @@ document.querySelector('#save').addEventListener('touchstart', saveProgram);
       })
   }
   document.querySelector('#seeBeatz').addEventListener('click', seeBeatz);
-  document.querySelector('#seeBeatz').addEventListener('touchstart', seeBeatz);
+  document.querySelector('#seeBeatz').addEventListener('tap', seeBeatz);
 
 
 
